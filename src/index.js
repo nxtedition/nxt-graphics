@@ -1,5 +1,4 @@
 import CG from './lib/caspar-react'
-import React from 'react'
 
 CG.render({
   preview () {
