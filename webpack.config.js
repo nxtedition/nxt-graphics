@@ -3,6 +3,10 @@ const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin
 const path = require('path')
 
 module.exports = {
+  devtool: 'cheap-module-source-map',
+  performance: {
+    hints: false
+  },
   entry: './src/index.js',
   output: {
     path: path.join(__dirname, 'dist'),
