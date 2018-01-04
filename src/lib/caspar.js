@@ -1,5 +1,4 @@
 import { parseString as parseXML } from 'xml2js'
-import parseString from 'auto-parse'
 
 const listeners = new Map()
 
@@ -41,7 +40,7 @@ function fromParams (xml) {
     let componentData = {}
 
     for (const val2 of val.data || []) {
-      componentData[val2.$.id] = parseString(val2.$.value)
+      componentData[val2.$.id] = val2.$.value
     }
 
     result[val.$.id] = componentData
