@@ -1,4 +1,4 @@
-import { on, parse, isProduction } from './caspar'
+import { on, parse, xml, isProduction } from './caspar'
 import ReactDOM from 'react-dom'
 import React from 'react'
 
@@ -29,5 +29,6 @@ function register (obj) {
 
 module.exports = {
   parse,
+  xml,
   register
 }

@@ -4,7 +4,7 @@ import { TweenLite } from 'gsap'
 CG.register({
   preview () {
     // as CCG XML
-    this.update(CG.parse(`
+    this.update(CG.xml`
       <templateData>
         <componentData id="instance1">
           <data id="text" value="Text displayed in a CasparTextField" />
@@ -17,7 +17,7 @@ CG.register({
           <data id="data" value="true" />
         </componentData>
       </templateData>
-    `))
+    `)
 
     // as JS Object
     this.update({
