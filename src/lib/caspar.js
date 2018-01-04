@@ -78,6 +78,7 @@ const isProduction = !window.location.pathname.endsWith('dist/index.html') && !w
 
 module.exports = {
   isProduction,
+  fromParams,
   emit,
   on,
   off

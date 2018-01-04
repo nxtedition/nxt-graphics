@@ -41,15 +41,21 @@ CG.register({
   },
 
   play () {
-    this.setState({ isPlaying: true })
+    this.setState({
+      isPlaying: true
+    })
   },
 
   update (data) {
-    this.setState(data)
+    this.setState({
+      text: data.instance1 && data.instance1[0].value
+    })
   },
 
   stop () {
-    this.setState({ isPlaying: false })
+    this.setState({
+      isPlaying: false
+    })
   },
 
   remove () {
@@ -59,7 +65,7 @@ CG.register({
   render () {
     return this.state.isPlaying ? (
       <div>
-        Hello {this.state && this.state.instance1 && this.state.instance1[0].value}
+        Hello {this.state.text}
       </div>
     ) : null
   }

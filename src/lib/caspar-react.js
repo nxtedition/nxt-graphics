@@ -11,7 +11,8 @@ function register (obj) {
 
       for (const name of ['play', 'update', 'stop', 'remove']) {
         if (obj[name]) {
-          on(name, obj[name].bind(this))
+          this[name] = obj[name].bind(this)
+          on(name, this[name])
         }
       }
 
