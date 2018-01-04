@@ -38,11 +38,14 @@ CG.register({
   },
 
   load () {
-    this.gsap = { opacity: 0.0 }
+    this.gsap = {
+      opacity: 0.0
+    }
+    TweenLite.ticker.addEventListener('tick', () => this.setState(this.gsap))
   },
 
   play () {
-    TweenLite.to(this.gsap, 1, { opacity: 1.0, onUpdate: () => this.setState({ opacity: this.gsap.opacity }) })
+    TweenLite.to(this.gsap, 1, { opacity: 1.0 })
   },
 
   update (data) {
@@ -52,7 +55,7 @@ CG.register({
   },
 
   stop () {
-    TweenLite.to(this.gsap, 1, { opacity: 0.0, onUpdate: () => this.setState({ opacity: this.gsap.opacity }) })
+    TweenLite.to(this.gsap, 1, { opacity: 0.0 })
   },
 
   remove () {
@@ -61,7 +64,9 @@ CG.register({
 
   render () {
     return (
-      <div style={{ opacity: this.state.opacity }}>
+      <div style={{
+        opacity: this.state.opacity
+      }}>
         Hello {this.state.text}
       </div>
     )
