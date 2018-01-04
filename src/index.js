@@ -28,7 +28,7 @@ CG.register({
         alpha: '0.6'
       },
       customParameter1: {
-        data: true
+        data: 'true'
       }
     })
 
