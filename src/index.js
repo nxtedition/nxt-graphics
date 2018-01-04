@@ -1,9 +1,9 @@
 import CG from './lib/caspar-react'
 
-CG.render({
+CG.register({
   preview () {
     // as CCG XML
-    CG.emit('update', `
+    this.update(CG.parse(`
       <templateData>
         <componentData id="instance1">
           <data id="text" value="Text displayed in a CasparTextField" />
@@ -16,10 +16,10 @@ CG.render({
           <data id="data" value="true" />
         </componentData>
       </templateData>
-    `)
+    `))
 
     // as JS Object
-    CG.emit('update', {
+    this.update({
       instance1: [
         { id: 'text', value: 'Text displayed in a CasparTextField' }
       ],
@@ -32,8 +32,8 @@ CG.render({
       ]
     })
 
-    CG.emit('play')
-    setTimeout(() => CG.emit('stop'), 2000)
+    this.play()
+    setTimeout(() => this.stop(), 2000)
   },
 
   load () {

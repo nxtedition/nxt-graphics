@@ -14,7 +14,7 @@ function emit (name, ...args) {
 
   if (name === 'update' && typeof args[0] === 'string') {
     try {
-      args[0] = fromCGParams(args[0])
+      args[0] = fromParams(args[0])
     } catch (err) {
       emit('error', err)
       return
@@ -26,7 +26,7 @@ function emit (name, ...args) {
   }
 }
 
-function fromCGParams (xml) {
+function fromParams (xml) {
   let params
   parseXML(xml, (err, result) => {
     if (err) {

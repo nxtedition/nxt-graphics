@@ -1,8 +1,8 @@
-import { on, emit, off, isProduction } from './caspar'
+import { on, fromParams, isProduction } from './caspar'
 import ReactDOM from 'react-dom'
 import React from 'react'
 
-function render (obj) {
+function register (obj) {
   class Template extends React.Component {
     constructor () {
       super()
@@ -28,9 +28,6 @@ function render (obj) {
 }
 
 module.exports = {
-  on,
-  off,
-  emit,
-  isProduction,
-  render
+  parse: fromParams,
+  register
 }
