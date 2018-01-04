@@ -20,16 +20,16 @@ CG.register({
 
     // as JS Object
     this.update({
-      instance1: [
-        { id: 'text', value: 'Text displayed in a CasparTextField' }
-      ],
-      instance2: [
-        { id: 'imagePath', value: 'd:/caspar/_TEMPLATEMEDIA/myImage.png' },
-        { id: 'alpha', value: '0.6' }
-      ],
-      customParameter1: [
-        { id: 'data', value: true }
-      ]
+      instance1: {
+        text: 'Text displayed in a CasparTextField'
+      },
+      instance2: {
+        imagePath: 'd:/caspar/_TEMPLATEMEDIA/myImage.png',
+        alpha: '0.6'
+      },
+      customParameter1: {
+        data: true
+      }
     })
 
     this.play()
@@ -48,7 +48,7 @@ CG.register({
 
   update (data) {
     this.setState({
-      text: data.instance1 && data.instance1[0].value
+      text: data.instance1 && data.instance1.text
     })
   },
 

@@ -35,7 +35,19 @@ function fromParams (xml) {
       params = result
     }
   })
-  return params.templateData.componentData.reduce((obj, val) => Object.assign(obj, { [val.$.id]: val.data.map(val => parseString(val.$)) }), {})
+  const result = {}
+
+  for (const val of params.templateData.componentData || []) {
+    let componentData = {}
+
+    for (const val2 of val.data || []) {
+      componentData[val2.$.id] = val2.$.value
+    }
+
+    result[val.$.id] = componentData
+  }
+
+  return result
 }
 
 function on (name, callback) {
