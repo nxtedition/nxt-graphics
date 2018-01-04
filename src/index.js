@@ -1,4 +1,5 @@
 import CG from './lib/caspar-react'
+import { TweenLite } from 'gsap'
 
 CG.register({
   preview () {
@@ -37,13 +38,11 @@ CG.register({
   },
 
   load () {
-
+    this.gsap = { opacity: 0.0 }
   },
 
   play () {
-    this.setState({
-      isPlaying: true
-    })
+    TweenLite.to(this.gsap, 1, { opacity: 1.0, onUpdate: () => this.setState({ opacity: this.gsap.opacity }) })
   },
 
   update (data) {
@@ -53,9 +52,7 @@ CG.register({
   },
 
   stop () {
-    this.setState({
-      isPlaying: false
-    })
+    TweenLite.to(this.gsap, 1, { opacity: 0.0, onUpdate: () => this.setState({ opacity: this.gsap.opacity }) })
   },
 
   remove () {
@@ -63,10 +60,10 @@ CG.register({
   },
 
   render () {
-    return this.state.isPlaying ? (
-      <div>
+    return (
+      <div style={{ opacity: this.state.opacity }}>
         Hello {this.state.text}
       </div>
-    ) : null
+    )
   }
 })
