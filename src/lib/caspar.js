@@ -87,8 +87,12 @@ function off (name, callback) {
 
 const isProduction = !window.location.pathname.endsWith('dist/index.html') && !window.location.host
 
-function xml (strings) {
-  return parse(strings.join(''))
+function xml (strings, ...args) {
+  let res = ''
+  for (let n = 0; n < strings.length; ++n) {
+    res += strings[n] + (n < args.length ? String(args[n]) : '')
+  }
+  return parse(res)
 }
 
 module.exports = {
