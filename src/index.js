@@ -63,11 +63,12 @@ CG.register({
   },
 
   render () {
+    const { opacity, text } = this.state
     return (
       <div style={{
-        opacity: this.state.opacity
+        opacity
       }}>
-        Hello {this.state.text}
+        Hello {text}
       </div>
     )
   }
