@@ -60,10 +60,6 @@ CG.register({
     TweenLite.to(this.gsap, 1, { opacity: 0.0 })
   },
 
-  remove () {
-
-  },
-
   render () {
     const { opacity, f0, f1 } = this.state
 

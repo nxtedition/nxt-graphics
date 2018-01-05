@@ -8,7 +8,7 @@ function register (obj) {
       super()
       this.render = (...args) => !this.state ? null : obj.render.call(this)
 
-      for (const name of ['play', 'update', 'stop', 'remove']) {
+      for (const name of ['play', 'update', 'stop']) {
         if (obj[name]) {
           this[name] = obj[name].bind(this)
           on(name, this[name])
