@@ -2,16 +2,22 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin')
 const path = require('path')
 const webpack = require('webpack')
+const fs = require('fs')
+
+const templates = fs.readdirSync('./src').filter(x => x !== 'lib')
 
 module.exports = {
   devtool: 'cheap-module-source-map',
   performance: {
     hints: false
   },
-  entry: './src/index.js',
+  entry: templates.reduce((acc, template) => ({
+    ...acc,
+    [template]: `./src/${template}/${template}.js`
+  }), {}),
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: '[name].entry.js'
   },
   module: {
     rules: [
@@ -49,10 +55,14 @@ module.exports = {
       ReactDOM: 'react-dom',
       React: 'react'
     }),
-    new HtmlWebpackPlugin({
-      inlineSource: '.(js|css)$',
-      template: 'index.html'
-    }),
+    ...templates.map(template =>
+      new HtmlWebpackPlugin({
+        inlineSource: '.(js|css)$',
+        filename: template + '.html',
+        chunks: [template],
+        template: 'index.html'
+      })
+    ),
     new HtmlWebpackInlineSourcePlugin()
   ],
   externals: {
