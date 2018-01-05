@@ -85,7 +85,7 @@ function off (name, callback) {
   }
 }
 
-const isProduction = !window.location.pathname.endsWith('dist/index.html') && !window.location.host
+const isProduction = !window.location.pathname.includes('dist/') && !window.location.host
 
 function xml (strings, ...args) {
   let res = ''
