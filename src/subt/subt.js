@@ -1,7 +1,26 @@
-import CG from '../lib/caspar-react'
+import CG from '../lib/caspar'
 import { TweenLite } from 'gsap'
+import ReactDOM from 'react-dom'
+import React from 'react'
 
-CG.register({
+class Template extends React.Component {
+  constructor () {
+    super()
+
+    CG.on('play', this.play.bind(this))
+    CG.on('update', this.update.bind(this))
+    CG.on('stop', this.stop.bind(this))
+
+    if (!CG.isProduction) {
+      setTimeout(this.preview.bind(this), 1)
+    }
+
+    TweenLite.ticker.addEventListener('tick', () => this.setState(this.gsap))
+
+    this.gsap = { opacity: 0.0 }
+    this.state = { opacity: 0 }
+  }
+
   preview () {
     this.isPreview = true
 
@@ -36,29 +55,22 @@ CG.register({
 
     this.play()
     setTimeout(() => this.stop(), 4000)
-  },
-
-  load () {
-    this.gsap = {
-      opacity: 0.0
-    }
-    TweenLite.ticker.addEventListener('tick', () => this.setState(this.gsap))
-  },
+  }
 
   play () {
     TweenLite.to(this.gsap, 1, { opacity: 1.0 })
-  },
+  }
 
   update (data) {
     this.setState({
       f0: data.f0 && data.f0.text,
       f1: data.f1 && data.f1.text
     })
-  },
+  }
 
   stop () {
     TweenLite.to(this.gsap, 1, { opacity: 0.0 })
-  },
+  }
 
   render () {
     const { opacity, f0, f1 } = this.state
@@ -116,4 +128,6 @@ CG.register({
       </div>
     )
   }
-})
+}
+
+ReactDOM.render(<Template />, document.getElementById('app'))
