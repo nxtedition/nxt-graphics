@@ -24,11 +24,10 @@ CG.register({
     // as JS Object
     this.update({
       f0: {
-        text: 'Text displayed in a CasparTextField'
+        text: 'Adam Leah'
       },
       f1: {
-        imagePath: 'd:/caspar/_TEMPLATEMEDIA/myImage.png',
-        alpha: '0.6'
+        text: 'Graphics Designer'
       },
       customParameter1: {
         data: 'true'
@@ -52,7 +51,8 @@ CG.register({
 
   update (data) {
     this.setState({
-      text: data.f0 && data.f0.text
+      f0: data.f0 && data.f0.text,
+      f1: data.f1 && data.f1.text
     })
   },
 
@@ -65,7 +65,7 @@ CG.register({
   },
 
   render () {
-    const { opacity, text } = this.state
+    const { opacity, f0, f1 } = this.state
 
     const styles = {
       outer: {
@@ -114,8 +114,8 @@ CG.register({
     return (
       <div style={styles.outer}>
         <div style={styles.inner}>
-          <p style={styles.line1}>Adam Leah</p>
-          <p style={styles.line2}>{text}</p>
+          <p style={styles.line1}>{f0}</p>
+          <p style={styles.line2}>{f1}</p>
         </div>
       </div>
     )
