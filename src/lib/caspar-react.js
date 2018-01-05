@@ -6,7 +6,7 @@ function register (obj) {
   class Template extends React.Component {
     constructor () {
       super()
-      this.render = (...args) => !this.state ? null : obj.render.call(this)
+      this.render = (...args) => !this.state ? null : obj.render.call(this, ...args)
 
       for (const name of ['play', 'update', 'stop']) {
         if (obj[name]) {
