@@ -28,11 +28,10 @@ class Template extends React.Component {
     this.update(CG.xml`
       <templateData>
         <componentData id="f0">
-          <data id="text" value="Text displayed in a CasparTextField" />
+          <data id="text" value="Adam Leah" />
         </componentData>
         <componentData id="f1">
-          <data id="imagePath" value="d:/caspar/_TEMPLATEMEDIA/myImage.png" />
-          <data id="alpha" value="0.6" />
+          <data id="text" value="Graphics Designer" />
         </componentData>
         <componentData id="customParameter1">
           <data id="data" value="true" />
