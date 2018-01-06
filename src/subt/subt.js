@@ -18,7 +18,7 @@ class Template extends React.Component {
     TweenLite.ticker.addEventListener('tick', () => this.setState(this.gsap))
 
     this.gsap = { opacity: 0.0 }
-    this.state = { opacity: 0 }
+    this.state = { opacity: 0.0 }
   }
 
   preview () {
