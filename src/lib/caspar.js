@@ -1,4 +1,8 @@
+import React from 'react'
+import { TweenLite } from 'gsap'
 import { parseString as parseXML } from 'xml2js'
+
+const isProduction = window.location.pathname.indexOf('/Users/') === -1 && !window.location.host
 
 const listeners = new Map()
 
@@ -34,6 +38,7 @@ function parse (xml) {
       params = result
     }
   })
+
   const result = {}
 
   for (const val of params.templateData.componentData || []) {
@@ -85,8 +90,6 @@ function off (name, callback) {
   }
 }
 
-const isProduction = !window.location.pathname.includes('dist/') && !window.location.host
-
 function xml (strings, ...args) {
   let res = ''
   for (let n = 0; n < strings.length; ++n) {
@@ -95,11 +98,47 @@ function xml (strings, ...args) {
   return parse(res)
 }
 
+const CG_TEMPLATE_METHODS = [
+  'play',
+  'stop',
+  'update'
+]
+
+const REQUIRED_TEMPLATE_METHODS = [
+  ...CG_TEMPLATE_METHODS,
+  'preview'
+]
+
+class Template extends React.Component {
+  constructor () {
+    super()
+
+    REQUIRED_TEMPLATE_METHODS.forEach(x => {
+      if (!this[x]) {
+        throw new Error(`Missing template method "${x}"`)
+      }
+    })
+
+    CG_TEMPLATE_METHODS.forEach(x => {
+      on(x, this[x].bind(this))
+    })
+
+    TweenLite.ticker.addEventListener('tick', () => this.setState(this._state))
+  }
+
+  componentDidMount () {
+    if (!isProduction) {
+      setTimeout(this.preview.bind(this), 1)
+    }
+  }
+}
+
 module.exports = {
-  isProduction,
-  parse,
+  Template,
   emit,
-  on,
+  isProduction,
   off,
+  on,
+  parse,
   xml
 }
