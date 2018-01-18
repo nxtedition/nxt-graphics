@@ -101,7 +101,7 @@ function compileTemplate (template) {
       }),
       new FileManagerPlugin({
         onEnd: {
-          copy: config.postBuild.copyTo.map(destination => ({ source: path.join(__dirname, 'templates'), destination }))
+          copy: config.postBuild.copyTo.map(destination => ({ source: path.join(__dirname, 'templates', template), destination: path.join(destination, template) }))
         }
       })
     ],
