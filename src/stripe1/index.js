@@ -5,8 +5,8 @@ import { TweenLite, Power4 } from 'gsap'
 import ReactDOM from 'react-dom'
 import React from 'react'
 import nxtPic from '../images/nxt-logo.jpg'
-import bbb from '../video/big-buck-bunny_trailer.webm'
-import vmd from '../video/1linie.webm'
+import bbb from './video/big-buck-bunny_trailer.webm'
+import vmd from './video/1linie.webm'
 import Measure from 'react-measure'
 
 class Template extends CG.Template {
