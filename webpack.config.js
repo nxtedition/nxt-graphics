@@ -1,7 +1,4 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// TODO remove from package.json
-// const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin')
-// const WebpackDeleteAfterEmit = require('webpack-delete-after-emit')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const FileManagerPlugin = require('filemanager-webpack-plugin')
 const path = require('path')
