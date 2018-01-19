@@ -77,12 +77,6 @@ function compileTemplate (template) {
             }
           }]
         }
-      ],
-      noParse: [
-        // WORKAROUND: For `hls.js >=0.6.x`.
-        // Avoids the `This seems to be a pre-built javascript file.` warning.
-        // See, https://github.com/dailymotion/hls.js/issues/265#issuecomment-233661596
-        /\/node_modules\/hls\.js\/.+$/
       ]
     },
     plugins: [
