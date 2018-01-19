@@ -20457,19 +20457,19 @@ var _react = __webpack_require__(65);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(541);
+var _propTypes = __webpack_require__(542);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _resizeObserverPolyfill = __webpack_require__(544);
+var _resizeObserverPolyfill = __webpack_require__(545);
 
 var _resizeObserverPolyfill2 = _interopRequireDefault(_resizeObserverPolyfill);
 
-var _getTypes = __webpack_require__(545);
+var _getTypes = __webpack_require__(546);
 
 var _getTypes2 = _interopRequireDefault(_getTypes);
 
-var _getContentRect = __webpack_require__(546);
+var _getContentRect = __webpack_require__(547);
 
 var _getContentRect2 = _interopRequireDefault(_getContentRect);
 
@@ -20635,7 +20635,11 @@ var _bigBuckBunny_trailer = __webpack_require__(538);
 
 var _bigBuckBunny_trailer2 = _interopRequireDefault(_bigBuckBunny_trailer);
 
-var _reactMeasure = __webpack_require__(539);
+var _dancer = __webpack_require__(539);
+
+var _dancer2 = _interopRequireDefault(_dancer);
+
+var _reactMeasure = __webpack_require__(540);
 
 var _reactMeasure2 = _interopRequireDefault(_reactMeasure);
 
@@ -20772,6 +20776,11 @@ var Template = function (_CG$Template) {
           height: '720px',
           width: '1280px'
         },
+        alphavideo: {
+          position: 'absolute',
+          width: '1280px',
+          height: '720px'
+        },
         pic: {
           borderRight: '1px solid white',
           height: '74px',
@@ -20829,19 +20838,24 @@ var Template = function (_CG$Template) {
         'div',
         { style: styles.outer, __source: {
             fileName: _jsxFileName,
-            lineNumber: 169
+            lineNumber: 175
           }
         },
         _react2.default.createElement(
           'div',
           { style: styles.videos, __source: {
               fileName: _jsxFileName,
-              lineNumber: 170
+              lineNumber: 176
             }
           },
+          _react2.default.createElement('video', { muted: true, autoPlay: true, loop: true, src: _dancer2.default, style: styles.alphavideo, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 177
+            }
+          }),
           _react2.default.createElement('video', { muted: true, autoPlay: true, loop: true, src: _bigBuckBunny_trailer2.default, style: styles.backgroundVideo, __source: {
               fileName: _jsxFileName,
-              lineNumber: 171
+              lineNumber: 178
             }
           })
         ),
@@ -20851,7 +20865,7 @@ var Template = function (_CG$Template) {
               return _this4.onInnerDimensionsChanged(contentRect.bounds);
             }, __source: {
               fileName: _jsxFileName,
-              lineNumber: 173
+              lineNumber: 180
             }
           },
           function (_ref) {
@@ -20860,26 +20874,26 @@ var Template = function (_CG$Template) {
               'div',
               { ref: measureRef, style: styles.inner, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 175
+                  lineNumber: 182
                 }
               },
               _react2.default.createElement('img', { style: styles.pic, src: _nxtLogo2.default, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 176
+                  lineNumber: 183
                 }
               }),
               _react2.default.createElement(
                 'div',
                 { style: styles.lines, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 177
+                    lineNumber: 184
                   }
                 },
                 _react2.default.createElement(
                   'p',
                   { style: styles.line1, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 178
+                      lineNumber: 185
                     }
                   },
                   title
@@ -20888,7 +20902,7 @@ var Template = function (_CG$Template) {
                   'p',
                   { style: styles.line2, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 179
+                      lineNumber: 186
                     }
                   },
                   subtitle
@@ -20906,7 +20920,7 @@ var Template = function (_CG$Template) {
 _reactDom2.default.render(_react2.default.createElement(Template, {
   __source: {
     fileName: _jsxFileName,
-    lineNumber: 189
+    lineNumber: 196
   }
 }), document.getElementById('app'));
 
@@ -49356,6 +49370,12 @@ module.exports = __webpack_require__.p + "big-buck-bunny_trailer.webm";
 /* 539 */
 /***/ (function(module, exports, __webpack_require__) {
 
+module.exports = __webpack_require__.p + "dancer1.webm";
+
+/***/ }),
+/* 540 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
@@ -49364,7 +49384,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.withContentRect = exports.default = undefined;
 
-var _Measure = __webpack_require__(540);
+var _Measure = __webpack_require__(541);
 
 var _Measure2 = _interopRequireDefault(_Measure);
 
@@ -49378,7 +49398,7 @@ exports.default = _Measure2.default;
 exports.withContentRect = _withContentRect2.default;
 
 /***/ }),
-/* 540 */
+/* 541 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49411,7 +49431,7 @@ exports.default = (0, _withContentRect2.default)()(Measure);
 module.exports = exports['default'];
 
 /***/ }),
-/* 541 */
+/* 542 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/**
@@ -49436,17 +49456,17 @@ if (process.env.NODE_ENV !== 'production') {
   // By explicitly using `prop-types` you are opting into new development behavior.
   // http://fb.me/prop-types-in-prod
   var throwOnDirectAccess = true;
-  module.exports = __webpack_require__(542)(isValidElement, throwOnDirectAccess);
+  module.exports = __webpack_require__(543)(isValidElement, throwOnDirectAccess);
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(543)();
+  module.exports = __webpack_require__(544)();
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ }),
-/* 542 */
+/* 543 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49996,7 +50016,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ }),
-/* 543 */
+/* 544 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50061,7 +50081,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 544 */
+/* 545 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -51094,7 +51114,7 @@ var index = (function () {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(36)))
 
 /***/ }),
-/* 545 */
+/* 546 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51118,7 +51138,7 @@ function getTypes(props) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 546 */
+/* 547 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

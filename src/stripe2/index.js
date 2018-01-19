@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom'
 import React from 'react'
 import nxtPic from '../images/nxt-logo.jpg'
 import bbb from '../video/big-buck-bunny_trailer.webm'
+import alphadancer from '../video/dancer1.webm'
 import Measure from 'react-measure'
 
 class Template extends CG.Template {
@@ -112,6 +113,11 @@ class Template extends CG.Template {
         height: '720px',
         width: '1280px'
       },
+      alphavideo: {
+        position: 'absolute',
+        width: '1280px',
+        height: '720px'
+      },
       pic: {
         borderRight: '1px solid white',
         height: '74px',
@@ -168,6 +174,7 @@ class Template extends CG.Template {
     return (
       <div style={styles.outer}>
         <div style={styles.videos}>
+          <video muted autoPlay loop src={alphadancer} style={styles.alphavideo} />
           <video muted autoPlay loop src={bbb} style={styles.backgroundVideo} />
         </div>
         <Measure bounds onResize={(contentRect) => this.onInnerDimensionsChanged(contentRect.bounds)}>
