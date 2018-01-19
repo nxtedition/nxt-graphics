@@ -5,7 +5,6 @@ const path = require('path')
 const webpack = require('webpack')
 const fs = require('fs')
 
-// TODO use config to copy
 function setupConfig () {
   const raw = fs.existsSync(path.join(__dirname, 'config.json'))
     ? require('./config.json')
