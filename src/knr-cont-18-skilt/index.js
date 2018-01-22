@@ -5,6 +5,7 @@ import { TweenLite, TimelineLite } from 'gsap'
 import ReactDOM from 'react-dom'
 import React from 'react'
 import nxtPic from '../images/knr_logo_hvid.png'
+import previewHD from '../images/preview_HD.jpg'
 
 const HALF_TRANSITION_TIME = 1
 
@@ -110,6 +111,9 @@ class Template extends CG.Template {
         overflow: 'hidden',
         width: '1920px'
       },
+      background: {
+        position: 'absolute',
+      },
       // TODO how to sync background transition if KNR provides images???
       left: {
         position: 'absolute',
@@ -147,6 +151,7 @@ class Template extends CG.Template {
 
     return (
       <div style={styles.outer}>
+        {this.isPreview && <img src={previewHD} style={styles.background} />}
         <div style={styles.left} />
         <div style={styles.content}>
           <img src={nxtPic} style={styles.logo} />

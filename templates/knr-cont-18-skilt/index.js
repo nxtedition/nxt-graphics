@@ -20474,6 +20474,10 @@ var _knr_logo_hvid = __webpack_require__(536);
 
 var _knr_logo_hvid2 = _interopRequireDefault(_knr_logo_hvid);
 
+var _preview_HD = __webpack_require__(537);
+
+var _preview_HD2 = _interopRequireDefault(_preview_HD);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var HALF_TRANSITION_TIME = 1;
@@ -20584,6 +20588,9 @@ var Template = function (_CG$Template) {
           overflow: 'hidden',
           width: '1920px'
         },
+        background: {
+          position: 'absolute'
+        },
         // TODO how to sync background transition if KNR provides images???
         left: {
           position: 'absolute',
@@ -20623,31 +20630,36 @@ var Template = function (_CG$Template) {
         'div',
         { style: styles.outer, __source: {
             fileName: _jsxFileName,
-            lineNumber: 149
+            lineNumber: 153
           }
         },
+        this.isPreview && _react2.default.createElement('img', { src: _preview_HD2.default, style: styles.background, __source: {
+            fileName: _jsxFileName,
+            lineNumber: 154
+          }
+        }),
         _react2.default.createElement('div', { style: styles.left, __source: {
             fileName: _jsxFileName,
-            lineNumber: 150
+            lineNumber: 155
           }
         }),
         _react2.default.createElement(
           'div',
           { style: styles.content, __source: {
               fileName: _jsxFileName,
-              lineNumber: 151
+              lineNumber: 156
             }
           },
           _react2.default.createElement('img', { src: _knr_logo_hvid2.default, style: styles.logo, __source: {
               fileName: _jsxFileName,
-              lineNumber: 152
+              lineNumber: 157
             }
           }),
           _react2.default.createElement(
             'div',
             { style: styles.f0, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 153
+                lineNumber: 158
               }
             },
             day
@@ -20656,7 +20668,7 @@ var Template = function (_CG$Template) {
             'div',
             { style: styles.f1, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 154
+                lineNumber: 159
               }
             },
             clock
@@ -20665,7 +20677,7 @@ var Template = function (_CG$Template) {
             'div',
             { style: styles.f2, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 155
+                lineNumber: 160
               }
             },
             title
@@ -20680,7 +20692,7 @@ var Template = function (_CG$Template) {
 _reactDom2.default.render(_react2.default.createElement(Template, {
   __source: {
     fileName: _jsxFileName,
-    lineNumber: 162
+    lineNumber: 167
   }
 }), document.getElementById('app'));
 
@@ -49138,6 +49150,12 @@ module.exports = camelize;
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "knr_logo_hvid.png";
+
+/***/ }),
+/* 537 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "preview_HD.jpg";
 
 /***/ })
 /******/ ]);
