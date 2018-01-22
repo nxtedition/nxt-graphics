@@ -1,5 +1,5 @@
 import 'babel-polyfill'
-import '../fonts/index.css'
+import '../fonts/open-sans.css'
 import CG from '../lib/caspar'
 import { TweenLite, Power4 } from 'gsap'
 import ReactDOM from 'react-dom'
