@@ -1,15 +1,16 @@
 import 'babel-polyfill'
 import '../fonts/tw-cen.css'
 import CG from '../lib/caspar'
-import { TweenLite, TimelineLite } from 'gsap'
+import { TimelineLite } from 'gsap'
 import ReactDOM from 'react-dom'
 import React from 'react'
 import nxtPic from '../images/knr_logo_hvid.png'
-import previewHD from '../images/preview_HD.jpg'
+import bg1 from '../images/bg1-1080p.jpg'
+import bg2 from '../images/bg2-1080p.jpg'
 
 const HALF_TRANSITION_TIME = 1
 
-// TODO use
+// TODO are these the final colors?
 const COLORS = [
   '#769691',
   '#587F79',
@@ -21,6 +22,12 @@ const COLORS = [
   '#898F67',
   '#757D45',
   '#7D806D'
+]
+
+// TODO how to get images???
+const IMAGES = [
+  bg1,
+  bg2
 ]
 
 const MOCK = [
@@ -36,30 +43,25 @@ class Template extends CG.Template {
   constructor () {
     super()
 
-    this._state = { opacity: 1.0, colorIndex: 0 }
-    this.state = Object.assign({}, this._state)
+    this._gsap = {
+      clip: 0,
+      colorIndex: 0,
+      imageIndex: 0,
+      opacity: 1
+    }
+    this.state = Object.assign({}, this._gsap)
   }
 
   preview () {
-    this.isPreview = true
-
-    let runningIndex = 0
+    let i = 0
 
     const performUpdate = () => {
-      this.update(MOCK[runningIndex])
-      runningIndex = (runningIndex + 1) % MOCK.length
+      this.update(MOCK[i])
+      i = (i + 1) % MOCK.length
     }
 
     setInterval(performUpdate, 5e3)
     performUpdate()
-  }
-
-  onInnerDimensionsChanged (dimensions) {
-    const left = `${-dimensions.width}px`
-    if (!this.isPlaying) {
-      this._state.left = left
-    }
-    this.setState({ dimensions, left })
   }
 
   play () {
@@ -78,9 +80,17 @@ class Template extends CG.Template {
     } else {
       // create animation
 
-      const tl = new TimelineLite()
+      new TimelineLite()
+        .to(this._gsap, HALF_TRANSITION_TIME * 2, { clip: 1080 })
+        .to(this._gsap, 0, {
+          clip: 0,
+          colorIndex: (this.state.colorIndex + 1) % COLORS.length,
+          imageIndex: (this.state.imageIndex + 1) % IMAGES.length
+        })
 
-      tl.add(TweenLite.to(this._state, HALF_TRANSITION_TIME, { opacity: 0.0 }))
+      new TimelineLite()
+        .to(this._gsap, HALF_TRANSITION_TIME, { opacity: 0 })
+        .to(this._gsap, HALF_TRANSITION_TIME, { opacity: 1 })
 
       setTimeout(() => {
         this.setState({
@@ -88,12 +98,8 @@ class Template extends CG.Template {
           clock: data.clock && data.clock.text,
           title: data.title && data.title.text
         })
-      }, HALF_TRANSITION_TIME * 1e3) // milliseconds
-
-      tl.add(TweenLite.to(this._state, HALF_TRANSITION_TIME, { opacity: 1.0 }))
+      }, HALF_TRANSITION_TIME * 1e3)
     }
-
-    // TODO tween "clip", "colorIndex"
   }
 
   stop () {
@@ -101,37 +107,57 @@ class Template extends CG.Template {
   }
 
   render () {
-    const { day, clock, title, clip, opacity } = this.state
+    const {
+      clip,
+      clock,
+      colorIndex,
+      day,
+      imageIndex,
+      opacity,
+      title
+    } = this.state
+
+    const colorBack = COLORS[(colorIndex + 1) % COLORS.length]
+    const colorFront = COLORS[colorIndex]
+
+    const bgBack = IMAGES[(imageIndex + 1) % IMAGES.length]
+    const bgFront = IMAGES[imageIndex]
 
     const styles = {
       outer: {
-        backgroundColor: this.isPreview && '#0f0',
-        fontFamily: 'Tw Cen',
-        height: '1080px',
-        overflow: 'hidden',
-        width: '1920px'
+        backgroundColor: this.isPreview && '#6495ED',
+        fontFamily: 'Tw Cen'
       },
-      background: {
+      bgBack: {
+        position: 'absolute'
+      },
+      bgFront: {
         position: 'absolute',
+        clipPath: `inset(${clip}px 0px 0px 0px)`
       },
-      // TODO how to sync background transition if KNR provides images???
-      left: {
+      solidBack: {
         position: 'absolute',
         height: '1080px',
         width: '1920px',
         transform: 'translate(-50%) skew(-15deg)',
-        backgroundColor: '#769691',
+        backgroundColor: colorBack
+      },
+      solidFront: {
+        position: 'absolute',
+        height: '1080px',
+        width: '1920px',
+        transform: 'translate(-50%) skew(-15deg)',
+        backgroundColor: colorFront,
         clipPath: `inset(0px 0px ${clip}px 0px)`
       },
       content: {
         color: 'white',
         left: '425px',
         position: 'absolute',
-        textShadow: 'rgba(90, 90, 90, 0.95) 0px 0px 50px',
+        filter: 'drop-shadow(0px 0px 14px rgba(70, 70, 70, 0.95))',
         top: '150px'
       },
       logo: {
-        // TODO there should be a shadow on the logo, like for the text! These shadows should use the same parameters! Sync up with KNR
         width: '470px',
         marginLeft: '-37px'
       },
@@ -151,8 +177,10 @@ class Template extends CG.Template {
 
     return (
       <div style={styles.outer}>
-        {this.isPreview && <img src={previewHD} style={styles.background} />}
-        <div style={styles.left} />
+        <img src={bgBack} style={styles.bgBack} />
+        <img src={bgFront} style={styles.bgFront} />
+        <div style={styles.solidBack} />
+        <div style={styles.solidFront} />
         <div style={styles.content}>
           <img src={nxtPic} style={styles.logo} />
           <div style={styles.f0}>{ day }</div>

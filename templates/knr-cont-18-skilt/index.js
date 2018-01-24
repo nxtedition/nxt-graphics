@@ -20474,16 +20474,23 @@ var _knr_logo_hvid = __webpack_require__(536);
 
 var _knr_logo_hvid2 = _interopRequireDefault(_knr_logo_hvid);
 
-var _preview_HD = __webpack_require__(537);
+var _bg11080p = __webpack_require__(537);
 
-var _preview_HD2 = _interopRequireDefault(_preview_HD);
+var _bg11080p2 = _interopRequireDefault(_bg11080p);
+
+var _bg21080p = __webpack_require__(538);
+
+var _bg21080p2 = _interopRequireDefault(_bg21080p);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var HALF_TRANSITION_TIME = 1;
 
-// TODO use
+// TODO are these the final colors?
 var COLORS = ['#769691', '#587F79', '#5BA095', '#619272', '#547760', '#607467', '#7E8E84', '#898F67', '#757D45', '#7D806D'];
+
+// TODO how to get images???
+var IMAGES = [_bg11080p2.default, _bg21080p2.default];
 
 var MOCK = [{ day: { text: 'Ataasinngorneq' }, clock: { text: '20.00' }, title: { text: 'Sikusimasoq alakkarparput' } }, { day: { text: 'Ataasinngorneq' }, clock: { text: '20.30' }, title: { text: 'Meeqqat kakkilertasut' } }, { day: { text: 'Tallimanngorneq' }, clock: { text: '20.00' }, title: { text: 'Asilipé toqqaannartoq' } }, { day: { text: 'Ataasinngorneq' }, clock: { text: '20.00' }, title: { text: 'Inatsisartut ataatsimiinnerat' } }, { day: { text: 'Sisamanngorneq' }, clock: { text: '19.00' }, title: { text: 'Toqqorsivimmiit' } }, { day: { text: 'Ataasinngorneq' }, clock: { text: '20.00' }, title: { text: 'Sermersuaq nungulerpoq' } }];
 
@@ -20495,8 +20502,13 @@ var Template = function (_CG$Template) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (Template.__proto__ || (0, _getPrototypeOf2.default)(Template)).call(this));
 
-    _this._state = { opacity: 1.0, colorIndex: 0 };
-    _this.state = (0, _assign2.default)({}, _this._state);
+    _this._gsap = {
+      clip: 0,
+      colorIndex: 0,
+      imageIndex: 0,
+      opacity: 1
+    };
+    _this.state = (0, _assign2.default)({}, _this._gsap);
     return _this;
   }
 
@@ -20505,26 +20517,15 @@ var Template = function (_CG$Template) {
     value: function preview() {
       var _this2 = this;
 
-      this.isPreview = true;
-
-      var runningIndex = 0;
+      var i = 0;
 
       var performUpdate = function performUpdate() {
-        _this2.update(MOCK[runningIndex]);
-        runningIndex = (runningIndex + 1) % MOCK.length;
+        _this2.update(MOCK[i]);
+        i = (i + 1) % MOCK.length;
       };
 
       setInterval(performUpdate, 5e3);
       performUpdate();
-    }
-  }, {
-    key: 'onInnerDimensionsChanged',
-    value: function onInnerDimensionsChanged(dimensions) {
-      var left = -dimensions.width + 'px';
-      if (!this.isPlaying) {
-        this._state.left = left;
-      }
-      this.setState({ dimensions: dimensions, left: left });
     }
   }, {
     key: 'play',
@@ -20547,9 +20548,13 @@ var Template = function (_CG$Template) {
       } else {
         // create animation
 
-        var tl = new _gsap.TimelineLite();
+        new _gsap.TimelineLite().to(this._gsap, HALF_TRANSITION_TIME * 2, { clip: 1080 }).to(this._gsap, 0, {
+          clip: 0,
+          colorIndex: (this.state.colorIndex + 1) % COLORS.length,
+          imageIndex: (this.state.imageIndex + 1) % IMAGES.length
+        });
 
-        tl.add(_gsap.TweenLite.to(this._state, HALF_TRANSITION_TIME, { opacity: 0.0 }));
+        new _gsap.TimelineLite().to(this._gsap, HALF_TRANSITION_TIME, { opacity: 0 }).to(this._gsap, HALF_TRANSITION_TIME, { opacity: 1 });
 
         setTimeout(function () {
           _this3.setState({
@@ -20557,12 +20562,8 @@ var Template = function (_CG$Template) {
             clock: data.clock && data.clock.text,
             title: data.title && data.title.text
           });
-        }, HALF_TRANSITION_TIME * 1e3); // milliseconds
-
-        tl.add(_gsap.TweenLite.to(this._state, HALF_TRANSITION_TIME, { opacity: 1.0 }));
+        }, HALF_TRANSITION_TIME * 1e3);
       }
-
-      // TODO tween "clip", "colorIndex"
     }
   }, {
     key: 'stop',
@@ -20573,42 +20574,56 @@ var Template = function (_CG$Template) {
     key: 'render',
     value: function render() {
       var _state = this.state,
-          day = _state.day,
-          clock = _state.clock,
-          title = _state.title,
           clip = _state.clip,
-          opacity = _state.opacity;
+          clock = _state.clock,
+          colorIndex = _state.colorIndex,
+          day = _state.day,
+          imageIndex = _state.imageIndex,
+          opacity = _state.opacity,
+          title = _state.title;
 
+
+      var colorBack = COLORS[(colorIndex + 1) % COLORS.length];
+      var colorFront = COLORS[colorIndex];
+
+      var bgBack = IMAGES[(imageIndex + 1) % IMAGES.length];
+      var bgFront = IMAGES[imageIndex];
 
       var styles = {
         outer: {
-          backgroundColor: this.isPreview && '#0f0',
-          fontFamily: 'Tw Cen',
-          height: '1080px',
-          overflow: 'hidden',
-          width: '1920px'
+          backgroundColor: this.isPreview && '#6495ED',
+          fontFamily: 'Tw Cen'
         },
-        background: {
+        bgBack: {
           position: 'absolute'
         },
-        // TODO how to sync background transition if KNR provides images???
-        left: {
+        bgFront: {
+          position: 'absolute',
+          clipPath: 'inset(' + clip + 'px 0px 0px 0px)'
+        },
+        solidBack: {
           position: 'absolute',
           height: '1080px',
           width: '1920px',
           transform: 'translate(-50%) skew(-15deg)',
-          backgroundColor: '#769691',
+          backgroundColor: colorBack
+        },
+        solidFront: {
+          position: 'absolute',
+          height: '1080px',
+          width: '1920px',
+          transform: 'translate(-50%) skew(-15deg)',
+          backgroundColor: colorFront,
           clipPath: 'inset(0px 0px ' + clip + 'px 0px)'
         },
         content: {
           color: 'white',
           left: '425px',
           position: 'absolute',
-          textShadow: 'rgba(90, 90, 90, 0.95) 0px 0px 50px',
+          filter: 'drop-shadow(0px 0px 14px rgba(70, 70, 70, 0.95))',
           top: '150px'
         },
         logo: {
-          // TODO there should be a shadow on the logo, like for the text! These shadows should use the same parameters! Sync up with KNR
           width: '470px',
           marginLeft: '-37px'
         },
@@ -20630,36 +20645,46 @@ var Template = function (_CG$Template) {
         'div',
         { style: styles.outer, __source: {
             fileName: _jsxFileName,
-            lineNumber: 153
+            lineNumber: 179
           }
         },
-        this.isPreview && _react2.default.createElement('img', { src: _preview_HD2.default, style: styles.background, __source: {
+        _react2.default.createElement('img', { src: bgBack, style: styles.bgBack, __source: {
             fileName: _jsxFileName,
-            lineNumber: 154
+            lineNumber: 180
           }
         }),
-        _react2.default.createElement('div', { style: styles.left, __source: {
+        _react2.default.createElement('img', { src: bgFront, style: styles.bgFront, __source: {
             fileName: _jsxFileName,
-            lineNumber: 155
+            lineNumber: 181
+          }
+        }),
+        _react2.default.createElement('div', { style: styles.solidBack, __source: {
+            fileName: _jsxFileName,
+            lineNumber: 182
+          }
+        }),
+        _react2.default.createElement('div', { style: styles.solidFront, __source: {
+            fileName: _jsxFileName,
+            lineNumber: 183
           }
         }),
         _react2.default.createElement(
           'div',
           { style: styles.content, __source: {
               fileName: _jsxFileName,
-              lineNumber: 156
+              lineNumber: 184
             }
           },
           _react2.default.createElement('img', { src: _knr_logo_hvid2.default, style: styles.logo, __source: {
               fileName: _jsxFileName,
-              lineNumber: 157
+              lineNumber: 185
             }
           }),
           _react2.default.createElement(
             'div',
             { style: styles.f0, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 158
+                lineNumber: 186
               }
             },
             day
@@ -20668,7 +20693,7 @@ var Template = function (_CG$Template) {
             'div',
             { style: styles.f1, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 159
+                lineNumber: 187
               }
             },
             clock
@@ -20677,7 +20702,7 @@ var Template = function (_CG$Template) {
             'div',
             { style: styles.f2, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 160
+                lineNumber: 188
               }
             },
             title
@@ -20692,7 +20717,7 @@ var Template = function (_CG$Template) {
 _reactDom2.default.render(_react2.default.createElement(Template, {
   __source: {
     fileName: _jsxFileName,
-    lineNumber: 167
+    lineNumber: 195
   }
 }), document.getElementById('app'));
 
@@ -27562,7 +27587,7 @@ var Template = function (_React$Component) {
     });
 
     _gsap.TweenLite.ticker.addEventListener('tick', function () {
-      return _this.setState(_this._state);
+      return _this.setState(_this._gsap);
     });
     return _this;
   }
@@ -27571,6 +27596,7 @@ var Template = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       if (!isProduction) {
+        this.isPreview = true;
         setTimeout(this.preview.bind(this), 1);
       }
     }
@@ -49155,7 +49181,13 @@ module.exports = __webpack_require__.p + "knr_logo_hvid.png";
 /* 537 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "preview_HD.jpg";
+module.exports = __webpack_require__.p + "bg1-1080p.jpg";
+
+/***/ }),
+/* 538 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "bg2-1080p.jpg";
 
 /***/ })
 /******/ ]);

@@ -123,11 +123,12 @@ class Template extends React.Component {
       on(x, this[x].bind(this))
     })
 
-    TweenLite.ticker.addEventListener('tick', () => this.setState(this._state))
+    TweenLite.ticker.addEventListener('tick', () => this.setState(this._gsap))
   }
 
   componentDidMount () {
     if (!isProduction) {
+      this.isPreview = true
       setTimeout(this.preview.bind(this), 1)
     }
   }

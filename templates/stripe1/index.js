@@ -20653,8 +20653,8 @@ var Template = function (_CG$Template) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (Template.__proto__ || (0, _getPrototypeOf2.default)(Template)).call(this));
 
-    _this._state = { opacity: 0.0, left: '-10000000px' };
-    _this.state = (0, _assign2.default)({}, _this._state);
+    _this._gsap = { opacity: 0.0, left: '-10000000px' };
+    _this.state = (0, _assign2.default)({}, _this._gsap);
     return _this;
   }
 
@@ -20662,23 +20662,6 @@ var Template = function (_CG$Template) {
     key: 'preview',
     value: function preview() {
       var _this2 = this;
-
-      this.isPreview = true;
-
-      // as CCG XML
-      // this.update(CG.xml`
-      //   <templateData>
-      //     <componentData id="f0">
-      //       <data id="text" value="Martin G" />
-      //     </componentData>
-      //     <componentData id="f1">
-      //       <data id="text" value="Web Developer" />
-      //     </componentData>
-      //     <componentData id="customParameter1">
-      //       <data id="data" value="true" />
-      //     </componentData>
-      //   </templateData>
-      // `)
 
       // as JS Object
       this.update({
@@ -20712,7 +20695,7 @@ var Template = function (_CG$Template) {
     value: function onInnerDimensionsChanged(dimensions) {
       var left = -dimensions.width + 'px';
       if (!this.isPlaying) {
-        this._state.left = left;
+        this._gsap.left = left;
       }
       this.setState({ dimensions: dimensions, left: left });
     }
@@ -20720,7 +20703,7 @@ var Template = function (_CG$Template) {
     key: 'play',
     value: function play() {
       this.isPlaying = true;
-      _gsap.TweenLite.to(this._state, 2, { ease: _gsap.Power4.easeInOut, opacity: 1.0, left: '99px' });
+      _gsap.TweenLite.to(this._gsap, 2, { ease: _gsap.Power4.easeInOut, opacity: 1.0, left: '99px' });
     }
   }, {
     key: 'update',
@@ -20736,7 +20719,7 @@ var Template = function (_CG$Template) {
     value: function stop() {
       var _this3 = this;
 
-      _gsap.TweenLite.to(this._state, 2, { ease: _gsap.Power4.easeInOut, opacity: 1.0, left: -this.state.dimensions.width + 'px' });
+      _gsap.TweenLite.to(this._gsap, 2, { ease: _gsap.Power4.easeInOut, opacity: 1.0, left: -this.state.dimensions.width + 'px' });
       setTimeout(function () {
         _this3.isPlaying = false;
       }, 2000);
@@ -20756,15 +20739,8 @@ var Template = function (_CG$Template) {
 
       var styles = {
         outer: {
-          backgroundColor: this.isPreview && '#0f0',
-          height: '720px',
-          width: '1280px',
-          overflow: 'hidden'
-        },
-        videos: {
-          width: '1280px',
-          height: '720px',
-          overflow: 'hidden'
+          backgroundColor: this.isPreview && 'gray',
+          fontFamily: 'Open Sans'
         },
         overlayVideo: {
           position: 'absolute',
@@ -20786,10 +20762,8 @@ var Template = function (_CG$Template) {
         inner: {
           border: '1px solid white',
           color: 'white',
-          fontFamily: 'Open Sans',
           height: '74px',
           left: left,
-          // left: '99px',
           lineHeight: 1,
           maxWidth: '1093px',
           opacity: opacity,
@@ -20834,34 +20808,26 @@ var Template = function (_CG$Template) {
         'div',
         { style: styles.outer, __source: {
             fileName: _jsxFileName,
-            lineNumber: 170
+            lineNumber: 144
           }
         },
-        _react2.default.createElement(
-          'div',
-          { style: styles.videos, __source: {
-              fileName: _jsxFileName,
-              lineNumber: 171
-            }
-          },
-          _react2.default.createElement('video', { muted: true, autoPlay: true, loop: true, src: _bigBuckBunny_trailer2.default, style: styles.backgroundVideo, __source: {
-              fileName: _jsxFileName,
-              lineNumber: 172
-            }
-          }),
-          _react2.default.createElement('video', { muted: true, autoPlay: true, loop: true, src: _linie2.default, style: styles.overlayVideo, __source: {
-              fileName: _jsxFileName,
-              lineNumber: 173
-            }
-          })
-        ),
+        _react2.default.createElement('video', { muted: true, autoPlay: true, loop: true, src: _bigBuckBunny_trailer2.default, style: styles.backgroundVideo, __source: {
+            fileName: _jsxFileName,
+            lineNumber: 145
+          }
+        }),
+        _react2.default.createElement('video', { muted: true, autoPlay: true, loop: true, src: _linie2.default, style: styles.overlayVideo, __source: {
+            fileName: _jsxFileName,
+            lineNumber: 146
+          }
+        }),
         _react2.default.createElement(
           _reactMeasure2.default,
           { bounds: true, onResize: function onResize(contentRect) {
               return _this4.onInnerDimensionsChanged(contentRect.bounds);
             }, __source: {
               fileName: _jsxFileName,
-              lineNumber: 175
+              lineNumber: 147
             }
           },
           function (_ref) {
@@ -20870,26 +20836,26 @@ var Template = function (_CG$Template) {
               'div',
               { ref: measureRef, style: styles.inner, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 177
+                  lineNumber: 149
                 }
               },
               _react2.default.createElement('img', { style: styles.pic, src: _nxtLogo2.default, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 178
+                  lineNumber: 150
                 }
               }),
               _react2.default.createElement(
                 'div',
                 { style: styles.lines, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 179
+                    lineNumber: 151
                   }
                 },
                 _react2.default.createElement(
                   'p',
                   { style: styles.line1, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 180
+                      lineNumber: 152
                     }
                   },
                   title
@@ -20898,7 +20864,7 @@ var Template = function (_CG$Template) {
                   'p',
                   { style: styles.line2, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 181
+                      lineNumber: 153
                     }
                   },
                   subtitle
@@ -20916,7 +20882,7 @@ var Template = function (_CG$Template) {
 _reactDom2.default.render(_react2.default.createElement(Template, {
   __source: {
     fileName: _jsxFileName,
-    lineNumber: 191
+    lineNumber: 163
   }
 }), document.getElementById('app'));
 
@@ -27786,7 +27752,7 @@ var Template = function (_React$Component) {
     });
 
     _gsap.TweenLite.ticker.addEventListener('tick', function () {
-      return _this.setState(_this._state);
+      return _this.setState(_this._gsap);
     });
     return _this;
   }
@@ -27795,6 +27761,7 @@ var Template = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       if (!isProduction) {
+        this.isPreview = true;
         setTimeout(this.preview.bind(this), 1);
       }
     }

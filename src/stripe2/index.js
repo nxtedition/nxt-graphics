@@ -13,28 +13,11 @@ class Template extends CG.Template {
   constructor () {
     super()
 
-    this._state = { opacity: 0.0, left: '-10000000px' }
-    this.state = Object.assign({}, this._state)
+    this._gsap = { opacity: 0.0, left: '-10000000px' }
+    this.state = Object.assign({}, this._gsap)
   }
 
   preview () {
-    this.isPreview = true
-
-    // as CCG XML
-    // this.update(CG.xml`
-    //   <templateData>
-    //     <componentData id="f0">
-    //       <data id="text" value="Martin G" />
-    //     </componentData>
-    //     <componentData id="f1">
-    //       <data id="text" value="Web Developer" />
-    //     </componentData>
-    //     <componentData id="customParameter1">
-    //       <data id="data" value="true" />
-    //     </componentData>
-    //   </templateData>
-    // `)
-
     // as JS Object
     this.update({
       title: {
@@ -44,7 +27,7 @@ class Template extends CG.Template {
         text: 'Caspar Web Template Developer at NXTedition'
       }
       // info: {
-      //   text: 'Portfolio: asdfasdf'
+      //   text: 'Portfolio: loads'
       // }
     })
 
@@ -62,14 +45,14 @@ class Template extends CG.Template {
   onInnerDimensionsChanged (dimensions) {
     const left = `${-dimensions.width}px`
     if (!this.isPlaying) {
-      this._state.left = left
+      this._gsap.left = left
     }
     this.setState({ dimensions, left })
   }
 
   play () {
     this.isPlaying = true
-    TweenLite.to(this._state, 2, { ease: Power4.easeInOut, opacity: 1.0, left: '99px' })
+    TweenLite.to(this._gsap, 2, { ease: Power4.easeInOut, opacity: 1.0, left: '99px' })
   }
 
   update (data) {
@@ -81,7 +64,7 @@ class Template extends CG.Template {
   }
 
   stop () {
-    TweenLite.to(this._state, 2, { ease: Power4.easeInOut, opacity: 1.0, left: `${-this.state.dimensions.width}px` })
+    TweenLite.to(this._gsap, 2, { ease: Power4.easeInOut, opacity: 1.0, left: `${-this.state.dimensions.width}px` })
     setTimeout(() => {
       this.isPlaying = false
     }, 2000)
@@ -92,15 +75,8 @@ class Template extends CG.Template {
 
     const styles = {
       outer: {
-        backgroundColor: this.isPreview && '#0f0',
-        height: '720px',
-        width: '1280px',
-        overflow: 'hidden'
-      },
-      videos: {
-        width: '1280px',
-        height: '720px',
-        overflow: 'hidden'
+        backgroundColor: this.isPreview && 'gray',
+        fontFamily: 'Open Sans'
       },
       overlayVideo: {
         position: 'absolute',
@@ -127,7 +103,6 @@ class Template extends CG.Template {
       inner: {
         border: '1px solid white',
         color: 'white',
-        fontFamily: 'Open Sans',
         height: '74px',
         left,
         // left: '99px',
@@ -173,10 +148,8 @@ class Template extends CG.Template {
 
     return (
       <div style={styles.outer}>
-        <div style={styles.videos}>
-          <video muted autoPlay loop src={alphadancer} style={styles.alphavideo} />
-          <video muted autoPlay loop src={bbb} style={styles.backgroundVideo} />
-        </div>
+        <video muted autoPlay loop src={alphadancer} style={styles.alphavideo} />
+        <video muted autoPlay loop src={bbb} style={styles.backgroundVideo} />
         <Measure bounds onResize={(contentRect) => this.onInnerDimensionsChanged(contentRect.bounds)}>
           {({ measureRef }) =>
             <div ref={measureRef} style={styles.inner}>
