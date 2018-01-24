@@ -20745,9 +20745,8 @@ var Template = function (_CG$Template) {
         overlayVideo: {
           position: 'absolute',
           left: '0px',
-          top: '564px',
-          transformOrigin: 'bottom left',
-          transform: 'scale(0.666)'
+          transformOrigin: 'top left',
+          transform: 'scale(0.667)'
         },
         backgroundVideo: {
           height: '720px',
@@ -20808,17 +20807,17 @@ var Template = function (_CG$Template) {
         'div',
         { style: styles.outer, __source: {
             fileName: _jsxFileName,
-            lineNumber: 144
+            lineNumber: 143
           }
         },
         _react2.default.createElement('video', { muted: true, autoPlay: true, loop: true, src: _bigBuckBunny_trailer2.default, style: styles.backgroundVideo, __source: {
             fileName: _jsxFileName,
-            lineNumber: 145
+            lineNumber: 144
           }
         }),
         _react2.default.createElement('video', { muted: true, autoPlay: true, loop: true, src: _linie2.default, style: styles.overlayVideo, __source: {
             fileName: _jsxFileName,
-            lineNumber: 146
+            lineNumber: 145
           }
         }),
         _react2.default.createElement(
@@ -20827,7 +20826,7 @@ var Template = function (_CG$Template) {
               return _this4.onInnerDimensionsChanged(contentRect.bounds);
             }, __source: {
               fileName: _jsxFileName,
-              lineNumber: 147
+              lineNumber: 146
             }
           },
           function (_ref) {
@@ -20836,26 +20835,26 @@ var Template = function (_CG$Template) {
               'div',
               { ref: measureRef, style: styles.inner, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 149
+                  lineNumber: 148
                 }
               },
               _react2.default.createElement('img', { style: styles.pic, src: _nxtLogo2.default, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 150
+                  lineNumber: 149
                 }
               }),
               _react2.default.createElement(
                 'div',
                 { style: styles.lines, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 151
+                    lineNumber: 150
                   }
                 },
                 _react2.default.createElement(
                   'p',
                   { style: styles.line1, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 152
+                      lineNumber: 151
                     }
                   },
                   title
@@ -20864,7 +20863,7 @@ var Template = function (_CG$Template) {
                   'p',
                   { style: styles.line2, __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 153
+                      lineNumber: 152
                     }
                   },
                   subtitle
@@ -20882,7 +20881,7 @@ var Template = function (_CG$Template) {
 _reactDom2.default.render(_react2.default.createElement(Template, {
   __source: {
     fileName: _jsxFileName,
-    lineNumber: 163
+    lineNumber: 162
   }
 }), document.getElementById('app'));
 

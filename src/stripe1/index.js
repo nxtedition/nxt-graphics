@@ -81,9 +81,8 @@ class Template extends CG.Template {
       overlayVideo: {
         position: 'absolute',
         left: '0px',
-        top: '564px',
-        transformOrigin: 'bottom left',
-        transform: 'scale(0.666)'
+        transformOrigin: 'top left',
+        transform: 'scale(0.667)'
       },
       backgroundVideo: {
         height: '720px',
