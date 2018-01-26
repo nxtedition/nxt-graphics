@@ -1,7 +1,6 @@
 {
   "postBuild": {
     "copyTo": [
-      "/Volumes/MEDIADRIVE/templates"
     ]
   }
 }
