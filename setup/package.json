@@ -1,10 +1,11 @@
 {
-  "name": "nxt-graphics",
-  "version": "1.0.0",
+  "name": "?",
+  "version": "?",
+  "license": "UNLICENSED",
   "scripts": {
-    "build": "NODE_ENV=production webpack --config ../nxt-graphics/webpack.config.js",
-    "dev": "webpack --config ../nxt-graphics/webpack.config.js --watch",
-    "start": "npm run build && ../nxt-graphics/run-canary.js && npm run dev"
+    "build": "NODE_ENV=production webpack --config nxt-graphics/webpack.config.js",
+    "dev": "webpack --config nxt-graphics/webpack.config.js --watch",
+    "start": "npm run build && nxt-graphics/run-canary.js && npm run dev"
   },
   "dependencies": {
     "babel-core": "^6.26.0",

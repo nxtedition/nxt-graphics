@@ -1,6 +1,6 @@
 import 'babel-polyfill'
 import '../fonts/tw-cen.css'
-import CG from '../lib/caspar'
+import CG from 'lib/caspar'
 import { TimelineLite } from 'gsap'
 import ReactDOM from 'react-dom'
 import React from 'react'

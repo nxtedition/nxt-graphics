@@ -1,16 +1,11 @@
 #! /usr/bin/env node
 
-const fs = require('fs')
 const path = require('path')
 const { exec } = require('child_process')
+const config = require('./config.js')
 
-const templates = fs
-  .readdirSync('./src')
-  .filter(x => x !== 'lib' && !x.includes('.') && fs
-    .readdirSync(path.join('./src', x))
-    .some(y => y === 'index.js')
-  )
-  .map(name => path.resolve(`./templates/${name}/index.html`))
+const templates = config.templateNames
+  .map(templateName => path.join(config.templatesDirectory, templateName, 'index.html'))
   .map(file => 'file://' + file)
   .join(' ')
 

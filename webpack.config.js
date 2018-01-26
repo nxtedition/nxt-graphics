@@ -10,9 +10,10 @@ function compileTemplate (templateName) {
     performance: {
       hints: false
     },
+    devtool: 'cheap-eval-source-map',
     entry: `${config.sourceDirectory}/${templateName}/index.js`,
     output: {
-      path: config.templatesDirectory,
+      path: path.join(config.templatesDirectory, templateName),
       filename: 'index.js',
       publicPath: '' // relative to HTML page (same directory)
     },
@@ -28,7 +29,7 @@ function compileTemplate (templateName) {
         },
         {
           test: /\.js(x)?$/,
-          include: [ config.sourceDirectory ],
+          include: [ config.sourceDirectory, path.join(__dirname, 'lib/caspar.js') ],
           loaders: [{
             loader: 'babel-loader',
             options: {
@@ -61,15 +62,15 @@ function compileTemplate (templateName) {
         ReactDOM: 'react-dom',
         React: 'react'
       }),
-      new CleanWebpackPlugin([config.templatesDirectory]),
+      new CleanWebpackPlugin([path.join(config.templatesDirectory, templateName)]),
       new HtmlWebpackPlugin({
         filename: 'index.html',
-        template: 'index.html'
+        template: path.join(__dirname, 'index.html')
       }),
       new FileManagerPlugin({
         onEnd: {
           copy: config.postBuild.copyTo.map(destination => ({
-            source: config.templatesDirectory,
+            source: path.join(config.templatesDirectory, templateName),
             destination: path.join(destination, templateName)
           }))
         }

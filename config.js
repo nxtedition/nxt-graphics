@@ -1,20 +1,20 @@
 const fs = require('fs')
 const path = require('path')
 
-const raw = fs.existsSync('./config.json')
-  ? require('./config.json')
+const raw = fs.existsSync(path.resolve('./wt-config.json'))
+  ? require('../wt-config.json')
   : {}
 
-if (!raw.workDirectory) {
-  throw new Error('Please specify workDirectory in config.json.')
+if (!raw.project) {
+  throw new Error('Please specify project in config.json.')
 }
 
-const workDirectory = path.resolve(raw.workDirectory)
-const sourceDirectory = path.join(workDirectory, 'src')
-const templatesDirectory = path.join(workDirectory, 'templates')
+const projectDirectory = path.resolve('.')
+const sourceDirectory = path.join(projectDirectory, 'src')
+const templatesDirectory = path.join(projectDirectory, 'templates')
 
 module.exports = {
-  workDirectory,
+  projectDirectory,
   sourceDirectory,
   templatesDirectory,
   postBuild: {
