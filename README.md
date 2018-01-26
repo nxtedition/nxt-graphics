@@ -4,7 +4,7 @@
 
 - if you have no git repo yet, `git init`
 - run `git submodule add git@github.com:nxtedition/nxt-graphics && cp -r ./nxt-graphics/setup/ ./`
-- modify package.json and wtm-config.json
+- modify `package.json` and `wtm-config.json`
 - run `yarn` or `npm i`
 
 ## Development
@@ -12,14 +12,11 @@
 - Basic: `yarn dev` or `npm run dev`
 - Advanced: `yarn start` or `npm run start` (auto-open templates in Chrome Canary with disabled web security)
 
-See Emulating Caspar for more information.
+See Emulating Caspar for more information
 
 ## Building
 
-You probably don't need this since development builds are identical to production builds, and you should check in your compiled files to source control to make life easy for non-devs.
-But;
-
-`yarn build` or `npm run build`
+Development builds are identical to production builds, and you should check in your built templates folder to source control to make life easy for non-devs.
 
 ## Emulating Caspar
 
@@ -36,7 +33,6 @@ See the `'Downloading old builds of Chrome / Chromium'` section on [the Chromium
 
 ## Configuration
 
-Copy config.example.json, rename it config.json and modify it to your liking.
 You must restart webpack (see Development section) before changes take effect.
 
 - `postBuild.copyTo` (array of strings): after build, copy all templates to every given folder. Typically you want to set this to your test Caspar's templates folder.
