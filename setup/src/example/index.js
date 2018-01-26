@@ -10,7 +10,6 @@ import bg2 from '../images/bg2-1080p.jpg'
 
 const HALF_TRANSITION_TIME = 1
 
-// TODO are these the final colors?
 const COLORS = [
   '#769691',
   '#587F79',
@@ -24,7 +23,6 @@ const COLORS = [
   '#7D806D'
 ]
 
-// TODO how to get images???
 const IMAGES = [
   bg1,
   bg2
