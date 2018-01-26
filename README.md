@@ -29,7 +29,7 @@ If you have Chrome Canary installed, you can run `./run-canary.js` to spin up a 
 
 Chrome Canary is chosen in order to not interfere with Chrome, which for some reason can't start a new instance if already running.
 Chrome Canary is a poor default, and should ideally be the version of Chromium that Caspar is running, but it's a hassle to get.
-See the `'Downloading old builds of Chrome / Chromium'` section on [the Chromium Download page](https://www.chromium.org/getting-involved/download-chromium) if you care to have a go.
+See the `Downloading old builds of Chrome / Chromium` section on [the Chromium Download page](https://www.chromium.org/getting-involved/download-chromium) if you care to have a go.
 
 ## wtm-config.json
 
