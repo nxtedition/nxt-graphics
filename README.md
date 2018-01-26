@@ -16,7 +16,9 @@ But;
 Templates in Caspar will ignore web security features, like disallowing responses with empty `Access-Control-Allow-Origin` headers from being handled in code.
 
 To emulate this, you can disable web security features in your local browser too.
-If you have Chrome Canary installed, you can run `./run-canary.sh` to spin up a Chrome Canary instance with disabled web security.
+If you have Chrome Canary installed, you can run `./run-canary.js` to spin up a Chrome Canary instance with disabled web security. The script will automatically build your templates and open them in separate tabs too.
+
+### Why Canary
 
 Chrome Canary is chosen in order to not interfere with Chrome, which for some reason can't start a new instance if already running.
 Chrome Canary is a poor default, and should ideally be the version of Chromium that Caspar is running, but it's a hassle to get.
