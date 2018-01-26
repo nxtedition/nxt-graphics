@@ -33,6 +33,9 @@ See the `Downloading old builds of Chrome / Chromium` section on [the Chromium D
 
 ## wtm-config.json
 
-You must restart webpack (see Development section) before changes take effect.
+Short for "web template manager configuration"
 
 - `postBuild.copyTo` (array of strings): after build, copy all templates to every given folder. Typically you want to set this to your test Caspar's templates folder.
+
+NOTE: You must restart webpack (see Development section) before changes take effect
+
