@@ -2,7 +2,10 @@
 
 ## Development
 
-`yarn dev` or `npm run dev`
+- Basic: `yarn dev` or `npm run dev`
+- Advanced: `yarn start` or `npm run start` (auto-open templates in Chrome Canary with disabled web security)
+
+See Emulating Caspar for more information.
 
 ## Building
 
@@ -16,7 +19,7 @@ But;
 Templates in Caspar will ignore web security features, like disallowing responses with empty `Access-Control-Allow-Origin` headers from being handled in code.
 
 To emulate this, you can disable web security features in your local browser too.
-If you have Chrome Canary installed, you can run `./run-canary.js` to spin up a Chrome Canary instance with disabled web security. The script will automatically build your templates and open them in separate tabs too.
+If you have Chrome Canary installed, you can run `./run-canary.js` to spin up a Chrome Canary instance with disabled web security. It will open every built template in a separate tab.
 
 ### Why Canary
 

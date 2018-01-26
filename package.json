@@ -2,7 +2,8 @@
   "name": "nxt-graphics",
   "scripts": {
     "build": "NODE_ENV=production webpack --config webpack.config.js",
-    "dev": "webpack --config webpack.config.js --watch"
+    "dev": "webpack --config webpack.config.js --watch",
+    "start": "npm run build && ./run-canary.js && npm run dev"
   },
   "dependencies": {
     "babel-core": "^6.26.0",

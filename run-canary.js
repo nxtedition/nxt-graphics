@@ -2,9 +2,7 @@
 
 const fs = require('fs')
 const path = require('path')
-const { exec, execSync } = require('child_process')
-
-execSync('npm run build')
+const { exec } = require('child_process')
 
 const templates = fs
   .readdirSync('./src')
