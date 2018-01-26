@@ -5,10 +5,6 @@ const raw = fs.existsSync(path.resolve('./wt-config.json'))
   ? require('../wt-config.json')
   : {}
 
-if (!raw.project) {
-  throw new Error('Please specify project in config.json.')
-}
-
 const projectDirectory = path.resolve('.')
 const sourceDirectory = path.join(projectDirectory, 'src')
 const templatesDirectory = path.join(projectDirectory, 'templates')
