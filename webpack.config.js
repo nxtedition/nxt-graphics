@@ -3,37 +3,16 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const FileManagerPlugin = require('filemanager-webpack-plugin')
 const path = require('path')
 const webpack = require('webpack')
-const fs = require('fs')
+const config = require('./config.js')
 
-function setupConfig () {
-  const raw = fs.existsSync(path.join(__dirname, 'config.json'))
-    ? require('./config.json')
-    : {}
-
-  return {
-    postBuild: {
-      copyTo: (raw.postBuild && raw.postBuild.copyTo) || []
-    }
-  }
-}
-
-const config = setupConfig()
-
-const templates = fs
-  .readdirSync('./src')
-  .filter(x => x !== 'lib' && !x.includes('.') && fs
-    .readdirSync(path.join('./src', x))
-    .some(y => y === 'index.js')
-  )
-
-function compileTemplate (template) {
+function compileTemplate (templateName) {
   return {
     performance: {
       hints: false
     },
-    entry: `./src/${template}/index.js`,
+    entry: `${config.sourceDirectory}/${templateName}/index.js`,
     output: {
-      path: path.join(__dirname, `templates/${template}`),
+      path: config.templatesDirectory,
       filename: 'index.js',
       publicPath: '' // relative to HTML page (same directory)
     },
@@ -49,9 +28,7 @@ function compileTemplate (template) {
         },
         {
           test: /\.js(x)?$/,
-          include: [
-            path.join(__dirname, 'src')
-          ],
+          include: [ config.sourceDirectory ],
           loaders: [{
             loader: 'babel-loader',
             options: {
@@ -84,7 +61,7 @@ function compileTemplate (template) {
         ReactDOM: 'react-dom',
         React: 'react'
       }),
-      new CleanWebpackPlugin([`templates/${template}`]),
+      new CleanWebpackPlugin([config.templatesDirectory]),
       new HtmlWebpackPlugin({
         filename: 'index.html',
         template: 'index.html'
@@ -92,16 +69,21 @@ function compileTemplate (template) {
       new FileManagerPlugin({
         onEnd: {
           copy: config.postBuild.copyTo.map(destination => ({
-            source: path.join(__dirname, 'templates', template),
-            destination: path.join(destination, template)
+            source: config.templatesDirectory,
+            destination: path.join(destination, templateName)
           }))
         }
       })
     ],
     externals: {
       ws: 'WebSocket'
+    },
+    resolve: {
+      alias: {
+        lib: path.resolve(__dirname, 'lib')
+      }
     }
   }
 }
 
-module.exports = templates.map(template => compileTemplate(template))
+module.exports = config.templateNames.map(templateName => compileTemplate(templateName))

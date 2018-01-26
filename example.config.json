@@ -1,4 +1,5 @@
 {
+  "workDirectory": "./work",
   "postBuild": {
     "copyTo": [
       "/Volumes/MEDIADRIVE/templates"
