@@ -2,8 +2,10 @@
 
 ## Setup new project
 
-- run `git clone git@github.com:nxtedition/nxt-graphics && cp -r ./nxt-graphics/setup/ ./`
+- if you have no git repo yet, `git init`
+- run `git submodule add git@github.com:nxtedition/nxt-graphics && cp -r ./nxt-graphics/setup/ ./`
 - modify package.json and wtm-config.json
+- run `yarn` or `npm i`
 
 ## Development
 
