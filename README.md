@@ -1,5 +1,10 @@
 # nxt-graphics
 
+## Setup new project
+
+- run `git clone git@github.com:nxtedition/nxt-graphics && cp -r ./nxt-graphics/setup/ ./`
+- modify package.json and wtm-config.json
+
 ## Development
 
 - Basic: `yarn dev` or `npm run dev`
