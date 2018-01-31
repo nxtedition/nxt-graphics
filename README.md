@@ -38,4 +38,3 @@ Short for "web template manager configuration"
 - `postBuild.copyTo` (array of strings): after build, copy all templates to every given folder. Typically you want to set this to your test Caspar's templates folder.
 
 NOTE: You must restart webpack (see Development section) before changes take effect
-
