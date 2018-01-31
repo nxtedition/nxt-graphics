@@ -7,6 +7,8 @@
 - modify `package.json` and `wtm-config.json`
 - run `yarn` or `npm i`
 
+If the remote version of this changes, you can run `git submodule update --init --force --remote` to update it; make sure you commit the change.
+
 ## Development
 
 - Basic: `yarn dev` or `npm run dev`
