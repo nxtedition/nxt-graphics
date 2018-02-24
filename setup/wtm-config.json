@@ -1,6 +1,0 @@
-{
-  "postBuild": {
-    "copyTo": [
-    ]
-  }
-}

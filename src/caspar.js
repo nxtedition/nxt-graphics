@@ -122,7 +122,9 @@ class Template extends React.Component {
     })
 
     CG_TEMPLATE_METHODS.forEach(x => {
-      on(x, this[x].bind(this))
+      if (this[x]) {
+        on(x, this[x].bind(this))
+      }
     })
 
     this._gsap = {}

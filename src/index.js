@@ -1,12 +1,11 @@
 import 'babel-polyfill'
-import '../fonts/tw-cen.css'
-import CG from 'lib/caspar'
+import './fonts/tw-cen.css'
+import CG from './caspar'
 import { TimelineLite } from 'gsap'
 import ReactDOM from 'react-dom'
 import React from 'react'
-import nxtPic from '../images/knr_logo_hvid.png'
-import bg1 from '../images/bg1-1080p.jpg'
-import bg2 from '../images/bg2-1080p.jpg'
+import bg1 from './images/bg1-1080p.jpg'
+import bg2 from './images/bg2-1080p.jpg'
 
 const HALF_TRANSITION_TIME = 1
 
@@ -180,7 +179,6 @@ class Template extends CG.Template {
         <div style={styles.solidBack} />
         <div style={styles.solidFront} />
         <div style={styles.content}>
-          <img src={nxtPic} style={styles.logo} />
           <div style={styles.f0}>{ day }</div>
           <div style={styles.f1}>{ clock }</div>
           <div style={styles.f2}>{ title }</div>
