@@ -19,4 +19,4 @@
 
 ## Emulating Caspar
 
-Templates in Caspar will ignore web security features, like blocking responses with empty `Access-Control-Allow-Origin` headers from being handled in code. To emulate this, you can disable web security features in your local browser using e.g. `--args --disable-web-security`.
+Templates in Caspar will ignore web security features, such as blocking responses with empty `Access-Control-Allow-Origin` headers from being handled in code. To emulate this, you can disable web security features in your local browser using e.g. `--args --disable-web-security`.
