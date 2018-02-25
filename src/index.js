@@ -28,12 +28,12 @@ const IMAGES = [
 ]
 
 const MOCK = [
-  { day: { text: 'Ataasinngorneq' }, clock: { text: '20.00' }, title: { text: 'Sikusimasoq alakkarparput' } },
-  { day: { text: 'Ataasinngorneq' }, clock: { text: '20.30' }, title: { text: 'Meeqqat kakkilertasut' } },
-  { day: { text: 'Tallimanngorneq' }, clock: { text: '20.00' }, title: { text: 'Asilipé toqqaannartoq' } },
-  { day: { text: 'Ataasinngorneq' }, clock: { text: '20.00' }, title: { text: 'Inatsisartut ataatsimiinnerat' } },
-  { day: { text: 'Sisamanngorneq' }, clock: { text: '19.00' }, title: { text: 'Toqqorsivimmiit' } },
-  { day: { text: 'Ataasinngorneq' }, clock: { text: '20.00' }, title: { text: 'Sermersuaq nungulerpoq' } }
+  { day: { text: 'Test 1' }, clock: { text: '20.00' }, title: { text: 'Test' } },
+  { day: { text: 'Test 1' }, clock: { text: '20.30' }, title: { text: 'Test' } },
+  { day: { text: 'Test 2' }, clock: { text: '20.00' }, title: { text: 'Test' } },
+  { day: { text: 'Test 1' }, clock: { text: '20.00' }, title: { text: 'Test' } },
+  { day: { text: 'Test 2' }, clock: { text: '19.00' }, title: { text: 'Test' } },
+  { day: { text: 'Test 1' }, clock: { text: '20.00' }, title: { text: 'Test' } }
 ]
 
 class Template extends CG.Template {
