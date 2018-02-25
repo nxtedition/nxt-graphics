@@ -4,7 +4,7 @@
 
 - `git clone git@github.com:nxtedition/nxt-graphics`
 - `git remote set-url origin https://github.com/USERNAME/REPOSITORY.git`
-- modify `package.json` and `wtm-config.json`
+- modify `package.json`
 - run `yarn` or `npm i`
 
 ## Development
