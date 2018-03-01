@@ -17,7 +17,7 @@ function emit (name, ...args) {
 
   if (name === 'update' && typeof args[0] === 'string') {
     try {
-      args[0] = args[0] && parse(args[0])
+      args[0] = args[0] ? parse(args[0]) : {}
     } catch (err) {
       emit('error', err)
       return
