@@ -3,11 +3,13 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const path = require('path')
 const webpack = require('webpack')
 
+const isProduction = process.env.NODE_ENV === 'production'
+
 module.exports = {
   performance: {
     hints: false
   },
-  devtool: 'cheap-eval-source-map',
+  devtool: !isProduction && 'cheap-eval-source-map',
   entry: `./src/index.js`,
   output: {
     path: path.join(__dirname, 'dist'),
@@ -55,15 +57,19 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.ProvidePlugin({
-      ReactDOM: 'react-dom',
-      React: 'react'
-    }),
     new CleanWebpackPlugin([ path.join(__dirname, 'dist') ]),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.join(__dirname, 'index.html')
-    })
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+    }),
+    ...(
+      isProduction ? [
+        new webpack.optimize.UglifyJsPlugin()
+      ] : []
+    )
   ],
   externals: {
     ws: 'WebSocket'
