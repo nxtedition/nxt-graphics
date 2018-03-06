@@ -99,10 +99,11 @@ function xml (strings, ...args) {
 }
 
 const CG_TEMPLATE_METHODS = [
+  'load',
   'play',
+  'pause',
   'stop',
-  'update',
-  'remove'
+  'update'
 ]
 
 const REQUIRED_TEMPLATE_METHODS = [
@@ -129,6 +130,10 @@ class Template extends React.Component {
 
     this._gsap = {}
     TweenLite.ticker.addEventListener('tick', () => this.setState(this._gsap))
+  }
+
+  remove () {
+    window.remove && window.remove()
   }
 
   componentDidMount () {

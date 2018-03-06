@@ -28,12 +28,12 @@ const IMAGES = [
 ]
 
 const MOCK = [
-  { day: { text: 'Test 1' }, clock: { text: '20.00' }, title: { text: 'Test' } },
-  { day: { text: 'Test 1' }, clock: { text: '20.30' }, title: { text: 'Test' } },
-  { day: { text: 'Test 2' }, clock: { text: '20.00' }, title: { text: 'Test' } },
-  { day: { text: 'Test 1' }, clock: { text: '20.00' }, title: { text: 'Test' } },
-  { day: { text: 'Test 2' }, clock: { text: '19.00' }, title: { text: 'Test' } },
-  { day: { text: 'Test 1' }, clock: { text: '20.00' }, title: { text: 'Test' } }
+  { day: { text: 'Test A' }, clock: { text: '19.00' }, title: { text: 'Test 1' } },
+  { day: { text: 'Test B' }, clock: { text: '20.30' }, title: { text: 'Test 2' } },
+  { day: { text: 'Test C' }, clock: { text: '21.00' }, title: { text: 'Test 3' } },
+  { day: { text: 'Test D' }, clock: { text: '22.30' }, title: { text: 'Test 4' } },
+  { day: { text: 'Test E' }, clock: { text: '23.00' }, title: { text: 'Test 5' } },
+  { day: { text: 'Test F' }, clock: { text: '23.15' }, title: { text: 'Test 6' } }
 ]
 
 class Template extends CG.Template {
@@ -44,9 +44,28 @@ class Template extends CG.Template {
       clip: 0,
       colorIndex: 0,
       imageIndex: 0,
-      opacity: 1
+      opacity: 1,
+      fadeout: 0
     }
-    this.state = Object.assign({}, this._gsap)
+    this.state = { ...this._gsap }
+
+    const swapBackground = () =>
+      Object.assign(this._gsap, {
+        clip: 0,
+        colorIndex: (this.state.colorIndex + 1) % COLORS.length,
+        imageIndex: (this.state.imageIndex + 1) % IMAGES.length
+      })
+
+    const swapData = () => this.state.next && this.setState({ ...this.state.next, next: null })
+
+    this.tl = new TimelineLite({ paused: true })
+      .to(this._gsap, HALF_TRANSITION_TIME * 2, { clip: 1080, onComplete: swapBackground })
+      .to(this._gsap, HALF_TRANSITION_TIME, { opacity: 0, onComplete: swapData }, 0)
+      .to(this._gsap, HALF_TRANSITION_TIME, { opacity: 1 })
+  }
+
+  load () {
+    this.tl.pause(0)
   }
 
   preview () {
@@ -62,45 +81,33 @@ class Template extends CG.Template {
   }
 
   play () {
-    this.isPlaying = true
+    this.tl.play()
+  }
+
+  pause () {
+    this.tl.pause()
   }
 
   update (data) {
+    if (this.state.stopped) {
+      return
+    }
+    const next = {
+      day: data.day && data.day.text,
+      clock: data.clock && data.clock.text,
+      title: data.title && data.title.text
+    }
     if (!this.state.day || !this.state.clock || !this.state.title) {
-      // handle initial state
-
-      this.setState({
-        day: data.day && data.day.text,
-        clock: data.clock && data.clock.text,
-        title: data.title && data.title.text
-      })
+      this.setState(next)
     } else {
-      // create animation
-
-      new TimelineLite()
-        .to(this._gsap, HALF_TRANSITION_TIME * 2, { clip: 1080 })
-        .to(this._gsap, 0, {
-          clip: 0,
-          colorIndex: (this.state.colorIndex + 1) % COLORS.length,
-          imageIndex: (this.state.imageIndex + 1) % IMAGES.length
-        })
-
-      new TimelineLite()
-        .to(this._gsap, HALF_TRANSITION_TIME, { opacity: 0 })
-        .to(this._gsap, HALF_TRANSITION_TIME, { opacity: 1 })
-
-      setTimeout(() => {
-        this.setState({
-          day: data.day && data.day.text,
-          clock: data.clock && data.clock.text,
-          title: data.title && data.title.text
-        })
-      }, HALF_TRANSITION_TIME * 1e3)
+      this.setState({ next })
+      this.tl.restart()
     }
   }
 
   stop () {
-    this.isPlaying = false
+    this.setState({ stopped: true })
+    this.tl.to(this._gsap, 1, { fadeout: 1, onComplete: () => this.remove() })
   }
 
   render () {
@@ -111,7 +118,8 @@ class Template extends CG.Template {
       day,
       imageIndex,
       opacity,
-      title
+      title,
+      fadeout
     } = this.state
 
     const colorBack = COLORS[(colorIndex + 1) % COLORS.length]
@@ -123,7 +131,8 @@ class Template extends CG.Template {
     const styles = {
       outer: {
         backgroundColor: this.isPreview && '#6495ED',
-        fontFamily: 'Tw Cen'
+        fontFamily: 'Tw Cen',
+        opacity: 1 - fadeout
       },
       bgBack: {
         position: 'absolute'
@@ -172,8 +181,20 @@ class Template extends CG.Template {
       }
     }
 
+    const onClick = this.isPreview ? () => this.tl.paused() ? this.play() : this.pause() : undefined
+    const onContextMenu = this.isPreview
+      ? evt => {
+        evt.preventDefault()
+        this.stop()
+      }
+      : undefined
+
     return (
-      <div style={styles.outer}>
+      <div
+        style={styles.outer}
+        onClick={onClick}
+        onContextMenu={onContextMenu}
+      >
         <img src={bgBack} style={styles.bgBack} />
         <img src={bgFront} style={styles.bgFront} />
         <div style={styles.solidBack} />
