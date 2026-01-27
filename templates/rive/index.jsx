@@ -19,16 +19,17 @@ export default function RiveTemplate() {
   const [artboards, setArtboard] = useState({})
   const aspectRatioRounded = Math.round(aspectRatio * 100) / 100
   const artboard = artboards[aspectRatioRounded]
-  const { riveSource } = data
+  let { $main, riveSource } = data
+  $main ??= riveSource
 
-  if (riveSource && artboard) {
-    return <RiveSourceWithArtboard src={riveSource} artboard={artboard} />
+  if ($main && artboard) {
+    return <$mainWithArtboard src={$main} artboard={artboard} />
   }
 
-  if (riveSource) {
+  if ($main) {
     return (
       <RiveArtboardMatcher
-        src={riveSource}
+        src={$main}
         setArtboard={setArtboard}
         aspectRatio={aspectRatioRounded}
       />
@@ -72,7 +73,7 @@ const RiveArtboardMatcher = ({ src, setArtboard, aspectRatio, }) => {
   return <RiveComponent />
 }
 
-const RiveSourceWithArtboard = ({ src, artboard }) => {
+const $mainWithArtboard = ({ src, artboard }) => {
   const { state, safeToRemove, data } = useCaspar()
   const { _debug: debug } = data
   const [{ stateMachine, viewModelInstance }, setInstances] = useState({})
@@ -182,7 +183,7 @@ const RiveArtboard = ({
 
   // Updates from caspar
   useEffect(() => {
-    const { riveSource, artboard, _debug: debug, ...casparData } = data
+    const { $main, artboard, _debug: debug, ...casparData } = data
     const vmi = viewModelInstance
 
     if (!vmi) {

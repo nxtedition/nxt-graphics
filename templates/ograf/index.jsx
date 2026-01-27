@@ -4,7 +4,7 @@ import { render, States, useCaspar, useCasparEvent } from '@nxtedition/graphics-
 
 export default function OgrafTemplate() {
   const { data, safeToRemove, state } = useCaspar()
-  const { ografMain, _debug: debug, ...ografData } = data
+  const { $main, _debug: debug, ...ografData } = data
   const [ografRef, setOgrafRef] = useState(null)
   const [readyToPlay, setReadyToPlay] = useState(false)
   const containerRef = useRef(null);
@@ -14,7 +14,7 @@ export default function OgrafTemplate() {
   useCasparEvent('update', async (data) => {
     if (readyToPlay) {
       log?.('DEBUG: ograf.update()')
-      const { ografMain, _debug, ...ografData } = data
+      const { $main, _debug, ...ografData } = data
       await ografRef.updateAction?.({ data: ografData })
       log?.('DEBUG: ograf.update() done')
     }
@@ -22,9 +22,9 @@ export default function OgrafTemplate() {
 
   useEffect(() => {
     async function importOgraf() {
-      log?.('DEBUG: Importing ograf web component:', ografMain)
+      log?.('DEBUG: Importing ograf web component:', $main)
       /* @vite-ignore */
-      const module = await import(ografMain)
+      const module = await import($main)
       log?.('DEBUG: Importing ograf web component done.')
       customElements.define('ograf-component', module.default)
       const component = new module.default()
@@ -34,10 +34,10 @@ export default function OgrafTemplate() {
 
     if (customElements.get('ograf-component')) {
       safeToRemove()
-    } else if (ografMain) {
+    } else if ($main) {
       void importOgraf()
     }
-  }, [ografMain])
+  }, [$main])
 
   useEffect(() => {
     if (ografRef == null) {
