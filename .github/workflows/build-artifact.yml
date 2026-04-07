@@ -1,0 +1,60 @@
+name: Build and Publish Artifact
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-artifact-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24.x'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Verify dist output
+        run: |
+          test -d dist
+          test "$(find dist -type f | wc -l)" -gt 0
+
+      - name: Create artifact zip
+        run: zip -r nxt-graphics-dist.zip dist
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: nxt-graphics-dist
+          path: nxt-graphics-dist.zip
+          retention-days: 360
+
+      - name: Publish release asset
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          artifacts: nxt-graphics-dist.zip
+          artifactErrorsFailBuild: true
+          generateReleaseNotes: false
+          makeLatest: true
+          name: Latest
+          replacesArtifacts: true
+          tag: latest
