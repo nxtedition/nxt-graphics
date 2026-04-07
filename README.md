@@ -10,4 +10,4 @@ The OGraf and Rive hosts expects the entry file (*.ograf.json for ograf, *.riv f
 
 ## Latest Build Artifact
 
-[Download nxt-graphics-dist.zip](https://github.com/gulpf/nxt-graphics/releases/download/latest/nxt-graphics-dist.zip)
+[Download nxt-graphics-dist.zip](https://github.com/nxtedition/nxt-graphics/releases/download/latest/nxt-graphics-dist.zip)
