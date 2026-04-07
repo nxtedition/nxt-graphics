@@ -38,7 +38,9 @@ jobs:
           test "$(find dist -type f | wc -l)" -gt 0
 
       - name: Create artifact zip
-        run: zip -r nxt-graphics-dist.zip dist
+        run: |
+          cd dist
+          zip -r ../nxt-graphics-dist.zip .
 
       - name: Upload workflow artifact
         uses: actions/upload-artifact@v7
